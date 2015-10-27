@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    صفحه ی اصلی
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+
+        {% for product in last_product %}
+            <div class="well col-lg-4" style="text-align: center">
+            <h3 class="text-center">{{ product.name }}</h3>
+
+                <img  style="width: 200px;height:200px;margin:auto"
+                     class="img-thumbnail thumbnail text-center"
+                      src="{{ product.picture_set.first.path.url }}"/>
+
+            </div>
+
+        {% endfor %}
+
+
+    </div>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">
+
+        </h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}

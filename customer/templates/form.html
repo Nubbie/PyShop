@@ -1,0 +1,10 @@
+{% load bootstrap3 %}
+<form action="{{ post }}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <div class="form-group">
+    <button class="btn btn-primary">
+        ثبت
+    </button>
+    </div>
+</form>
