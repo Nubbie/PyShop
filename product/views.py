@@ -5,13 +5,22 @@ from product.models import Product, Category
 
 class ProductList(ListView):
     template_name = 'list.html'
+    category = None
+
+    def get_category(self):
+        if self.category is None:
+            self.category = Category.objects.filter(pk=self.request.GET.get('cat', None)).first()
+        return self.category
 
     def get_queryset(self):
-        category = self.request.GET.get('cat', None)
-        if category is not None:
-            category = Category.objects.filter(pk=category).first()
-            return Product.objects.filter(category=category).all()
+        if self.get_category() is not None:
+            return Product.objects.filter(category=self.get_category()).all()
         return Product.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductList, self).get_context_data(**kwargs)
+        context['category']=self.get_category()
+        return context
 
 
 class ProductDetails(DetailView):
