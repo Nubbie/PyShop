@@ -30,7 +30,7 @@
                     <a href="{% url "homepage" %}">خانه</a>
                 </li>
                 {% for c in categories %}
-                    <li><a title="{{ c.description }}" href="#">{{ c.title }}</a></li>
+                    <li><a title="{{ c.description }}" href="{% url "product:Product_List" %}?cat={{ c.id }}">{{ c.title }}</a></li>
                 {% endfor %}
 
 

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% if object %}
+
+        <div class="row">
+            <div class=" well col-lg-12">
+                <h3 class="text-center">{{ object.name }}</h3>
+
+                <p>
+                    {{ object.description|linebreaks }}
+                </p>
+                <a class="btn btn-success">
+                    سفارش به قیمت
+                    {{ object.price }}
+                    ریال
+                </a>
+                <p>
+
+                </p>
+
+
+            </div>
+
+        </div>
+        {% for image in object.picture_set.all %}
+                    <img
+                            class="img-thumbnail thumbnail text-center"
+                            src="{{ image.path.url }}"/>
+                {% empty %}
+                    کالا فاقد عکس است
+                {% endfor %}
+    {% endif %}
+
+{% endblock %}
