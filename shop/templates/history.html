@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+    <h3>
+        تاریخچه سفارشات شما
+    </h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>
+                نام کالا
+            </th>
+            <th>
+                تعداد
+            </th>
+            <th>
+                قیمت واحد
+            </th>
+            <th>
+                قیمت کل
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for o in orders %}
+            <tr>
+                <td>
+                    <a href="{% url 'product:Product_Details' pk=o.product.pk %}">
+                        {{ o.product.name }}
+                    </a>
+                </td>
+                <td>
+                    {{ o.quantity }}
+                </td>
+                <td>
+                    {{ o.product.price }}
+                </td>
+                <td>
+                    {{ o.total }}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">
+                    شما تا به حال خریدی از ما نداشته اید
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -88,7 +88,6 @@ class GotoBank(TemplateView):
     def post(self, request, *args, **kwargs):
         return self.get(request, *args, **kwargs)
 
-
 class BackFromBank(View):
     def get(self, request):
         result = request.GET.get('mode', 'danger').lower()
@@ -103,3 +102,22 @@ class BackFromBank(View):
         else:
             messages.error(request, "پرداخت ناموفق بود")
         return http.HttpResponseRedirect(reverse("shop:basket"))
+
+
+class History(TemplateView):
+    template_name = 'history.html'
+
+    def get_context_data(self, **kwargs):
+        self.kwargs.update(kwargs)
+        customer = Customer.objects.filter(pk=self.request.user.id).first()
+        if customer is None:
+            messages.error(self.request, "شما باید ابتدا لاگین کنید")
+            return http.HttpResponseRedirect(reverse("customer:login"))
+        orders = Order.objects.filter(status=OrderStatus.PAYED, customer=customer).all()
+        total_price = 0
+        for o in orders:
+            o.total = o.product.price * o.quantity
+            total_price += o.total
+        self.kwargs['orders'] = orders
+
+        return self.kwargs
