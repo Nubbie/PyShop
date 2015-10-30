@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>
+                        حذف کالا
+                    </th>
+                    <th>
+                        نام کالا
+                    </th>
+                    <th>
+                        تعداد
+                    </th>
+                    <th>
+                        قیمت واحد
+                    </th>
+                    <th>
+                        قیمت کل
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for o in orders %}
+                    <tr>
+                        <td>
+                            <a href="{% url "shop:unorder" pk=o.pk %}" class="btn btn-default">
+                                <span class="text-danger glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'product:Product_Details' pk=o.product.pk %}">
+                                {{ o.product.name }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ o.quantity }}
+                        </td>
+                        <td>
+                            {{ o.product.price }}
+                        </td>
+                        <td>
+                            {{ o.total }}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">
+                            سبد خرید شما خالی است
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td class="text-left" colspan="4">
+                        مبلغ کل :
+                    </td>
+                    <td>
+
+                        {{ total_price }}
+                    </td>
+
+                </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <form action="{% url "shop:bank" %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-primary">
+                    پرداخت فاکتور
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

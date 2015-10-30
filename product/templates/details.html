@@ -9,27 +9,44 @@
 {% block content %}
     {% if object %}
 
-        <div class="row">
-            <div class=" well col-lg-12">
+        <div class=" well row">
+
+
+            <div class="col-lg-8">
                 <h3 class="text-center">{{ object.name }}</h3>
 
                 <p>
                     {{ object.description|linebreaks }}
                 </p>
-                <a class="btn btn-success">
-                    سفارش به قیمت
-                    {{ object.price }}
-                    ریال
-                </a>
 
-                <p>
+                <form action="{% url "shop:order" %}" method="post" class="col-lg-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="product" value="{{ object.pk }}"/>
 
-                </p>
+                    <div class="form-group ">
+                        <label for="quantity">
+                            تعداد درخواستی
+                        </label>
+                        <input class="form-control" id="quantity" name="quantity" value="1" type="number" min="1">
+                    </div>
+                    <button class="btn btn-success">
+                        سفارش به قیمت
+                        {{ object.price }}
+                        ریال
+                    </button>
 
-
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <img
+                        class="img-thumbnail thumbnail text-center"
+                        src="{{ object.picture_set.first.path.url }}"/>
             </div>
 
         </div>
+        <h2>
+        عکس های بیشتر
+        </h2>
         {% for image in object.picture_set.all %}
             <img
                     class="img-thumbnail thumbnail text-center"

@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap3 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,16 +28,34 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="{% url "homepage" %}">خانه</a>
+                    <a href="{% url "shop:homepage" %}">خانه</a>
                 </li>
                 {% for c in categories %}
-                    <li><a title="{{ c.description }}" href="{% url "product:Product_List" %}?cat={{ c.id }}">{{ c.title }}</a></li>
+                    <li><a title="{{ c.description }}"
+                           href="{% url "product:Product_List" %}?cat={{ c.id }}">{{ c.title }}</a></li>
                 {% endfor %}
 
 
             </ul>
             <ul class="nav navbar-nav navbar-left">
                 {% if customer %}
+                    <li>
+                        <a href="{% url "shop:basket" %}">
+                            {% if order_count %}
+
+                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                                شما
+                                {{ order_count }}
+                                سفارش در سبد دارید
+
+                            {% else %}
+
+                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                                سبد خرید شما خالی است
+
+                            {% endif %}
+                        </a>
+                    </li>
 
                     <li>
                         <a href="{% url "customer:profile" %}">
@@ -72,6 +91,7 @@
 </nav>
 
 <div class="container">
+    {% bootstrap_messages %}
 
     {% block content %}
     {% endblock %}

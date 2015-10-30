@@ -10,6 +10,7 @@
     <div class="row">
 
         {% for product in last_product %}
+            <a href="{%  url "product:Product_Details" pk=product.pk %}">
             <div class="well col-lg-4" style="text-align: center">
             <h3 class="text-center">{{ product.name }}</h3>
 
@@ -18,6 +19,8 @@
                       src="{{ product.picture_set.first.path.url }}"/>
 
             </div>
+
+            </a>
 
         {% endfor %}
 

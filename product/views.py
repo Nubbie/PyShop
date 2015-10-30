@@ -19,7 +19,7 @@ class ProductList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ProductList, self).get_context_data(**kwargs)
-        context['category']=self.get_category()
+        context['category'] = self.get_category()
         return context
 
 

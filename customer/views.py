@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django import http
 from customer.models import Customer
 
-
 # Create your views here.
 
 
@@ -44,7 +43,7 @@ class ProfileView(UpdateView):
         return Customer.objects.filter(pk=self.request.user.id).first()
 
     def get_success_url(self):
-        return reverse("homepage")
+        return reverse("shop:homepage")
 
     def get_template_names(self):
         request = self.request
@@ -64,7 +63,7 @@ class Login(FormView):
     form_class = LoginForm
 
     def get_success_url(self):
-        return reverse("homepage")
+        return reverse("shop:homepage")
 
     def get_template_names(self):
         request = self.request
