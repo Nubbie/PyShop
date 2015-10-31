@@ -3,7 +3,6 @@ env/*
 *.pyc
 *_local.py
 local/*
-media
 static
 fixtures
 db.*
