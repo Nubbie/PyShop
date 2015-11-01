@@ -95,4 +95,4 @@ class Login(FormView):
 
 def logout(request):
     auth.logout(request)
-    return http.HttpResponseRedirect(reverse("homepage"))
+    return http.HttpResponseRedirect(reverse("shop:homepage"))

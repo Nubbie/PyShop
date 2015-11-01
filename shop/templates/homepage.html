@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% load static %}
 
 {% block title %}
     صفحه ی اصلی
@@ -7,6 +7,12 @@
 
 
 {% block content %}
+    <div class="row">
+    <div style="margin:auto;text-align: center;padding-left:50px;">
+        <img src="{% static 'fixture_images/logoonlinesh.jpg' %}" style="margin-right:-100px;"/>
+    </div>
+
+    </div>
     <div class="row">
 
         {% for product in last_product %}
